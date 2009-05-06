@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Race.Domain", "Race.Domain\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Binaries", "Binaries", "{65B1E724-0CDE-4063-BAB4-751E4DC11CF8}"
 	ProjectSection(SolutionItems) = preProject
+		Binaries\Moq.dll = Binaries\Moq.dll
+		Binaries\Moq.xml = Binaries\Moq.xml
 		Binaries\nunit.framework.dll = Binaries\nunit.framework.dll
 	EndProjectSection
 EndProject

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
+using Moq;
 using NUnit.Framework;
+using Race.Domain;
 
 namespace Race.Tests
 {
@@ -12,32 +12,24 @@ namespace Race.Tests
         [Test]
         public void Can_create_game_with_two_players()
         {
-            var game = new Game();
+            var game = new Game(new DrawDeck());
             game.AddPlayer(new Player {Name = "Paul"});
             game.AddPlayer(new Player {Name = "Tristan"});
 
             game.Players.ShouldHaveCount(2);
 
         }
-    }
 
-    public class Player
-    {
-        public string Name { get; set; }
-    }
-
-    public class Game
-    {
-        private IEnumerable<Player> _players;
-
-        public void AddPlayer(Player player)
+        [Test]
+        public void Deck_is_shuffled_on_game_start()
         {
-            throw new NotImplementedException();
-        }
+            var deckMock = new Mock<DrawDeck>();
+                
+            var game = new Game(deckMock.Object);
+            game.Start();
 
-        public IEnumerable<Player> Players
-        {
-            get { return _players; }
+            deckMock.Verify(x => x.Shuffle());
+
         }
     }
 }
