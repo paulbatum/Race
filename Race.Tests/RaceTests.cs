@@ -12,7 +12,7 @@ namespace Race.Tests
         [Test]
         public void Can_create_game_with_two_players()
         {
-            var game = new Game(new DrawDeck());
+            var game = new Game(null);
             game.AddPlayer(new Player {Name = "Paul"});
             game.AddPlayer(new Player {Name = "Tristan"});
 

@@ -48,6 +48,7 @@
     <Compile Include="DrawDeck.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Hack1.cs" />
+    <Compile Include="MyExtensions.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

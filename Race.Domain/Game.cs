@@ -42,7 +42,8 @@ namespace Race.Domain
 
         public void Execute()
         {
-            _drawDeck.MoveCard(_drawDeck.TopCard, _player.Hand);
+            //_drawDeck.MoveCard(_drawDeck.TopCard, _player.Hand);
+            _drawDeck.TopCard.MoveTo(_player.Hand);
         }
     }
 
@@ -60,13 +61,23 @@ namespace Race.Domain
             _currentZone.MoveCard(this, targetZone);
             _currentZone = targetZone;
         }
+
+        public CardZone CurrentZone
+        {
+            get { return _currentZone; }
+        }
     }
 
     public class NullZone : CardZone
     {
-        public override void MoveCard(Card card, CardZone targetZone)
+        protected override void AddCard(Card card, CardZone targetZone)
         {
-            
+            // NO OP
+        }
+
+        protected override void RemoveCard(Card card)
+        {
+            // NO OP
         }
     }
 }

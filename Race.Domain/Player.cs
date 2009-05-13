@@ -37,10 +37,26 @@ namespace Race.Domain
             get { return _cards;}
         }
 
+        protected void RandomizeOrder()
+        {
+            Random r = new Random();
+            _cards.Sort((c1, c2) => r.Next());
+        }
+
         public virtual void MoveCard(Card card, CardZone targetZone)
         {
-            _cards.Remove(card);
+            RemoveCard(card);
+            AddCard(card, targetZone);
+        }
+
+        protected virtual void AddCard(Card card, CardZone targetZone)
+        {
             targetZone._cards.Add(card);
+        }
+
+        protected virtual void RemoveCard(Card card)
+        {
+            _cards.Remove(card);
         }
     }
 
