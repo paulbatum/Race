@@ -8,11 +8,11 @@ namespace Race.Domain
     {
         private DiscardPile _discards;
 
-        public DrawDeck() : this(Enumerable.Empty<Card>(), null)
+        public DrawDeck()
         {
         }
 
-        public DrawDeck(IEnumerable<Card> startingCards, DiscardPile discards) : base(startingCards)
+        public DrawDeck(IEnumerable<Card> startingCards, DiscardPile discards)
         {
             foreach (Card card in startingCards)
                 card.MoveTo(this);
@@ -46,7 +46,7 @@ namespace Race.Domain
             if(CardCount == 0)
             {
                 _discards.MoveAllCards(this);
-                //Shuffle();
+                Shuffle();
             }
         }
     }

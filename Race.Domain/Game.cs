@@ -47,30 +47,9 @@ namespace Race.Domain
         }
     }
 
-    public class Card
-    {
-        private CardZone _currentZone;
-
-        public Card()
-        {
-            _currentZone = new NullZone();
-        }
-
-        public void MoveTo(CardZone targetZone)
-        {            
-            _currentZone.MoveCard(this, targetZone);
-            _currentZone = targetZone;
-        }
-
-        public CardZone CurrentZone
-        {
-            get { return _currentZone; }
-        }
-    }
-
     public class NullZone : CardZone
     {
-        protected override void AddCard(Card card, CardZone targetZone)
+        protected override void AddCard(Card card)
         {
             // NO OP
         }
