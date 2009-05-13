@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Race.Domain
 {
-    public delegate void ZoneChanger(CardZone targetZone);
+    public delegate void CardZoneChanger(CardZone targetZone);
  
     public abstract class CardZone
     {
@@ -25,7 +25,7 @@ namespace Race.Domain
             _cards.Sort((c1, c2) => r.Next());
         }
 
-        public virtual void MoveCard(Card card, CardZone targetZone, ZoneChanger changer)
+        public virtual void MoveCard(Card card, CardZone targetZone, CardZoneChanger changer)
         {
             RemoveCard(card);
             targetZone.AddCard(card);

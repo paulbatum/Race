@@ -3,7 +3,7 @@ namespace Race.Domain
     public class Card
     {
         private CardZone _currentZone;
-        private readonly ZoneChanger _zoneChanger;
+        private readonly CardZoneChanger _zoneChanger;
 
         public Card()
         {
