@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Race.Domain
 {
-    public delegate void CardZoneChanger(CardZone targetZone);
- 
-    public abstract class CardZone
+    public class CardZone
     {
         private List<Card> _cards;
 
-        protected CardZone()
+        public CardZone()
         {
             _cards = new List<Card>();
         }
@@ -17,6 +16,11 @@ namespace Race.Domain
         protected IEnumerable<Card> Cards
         {
             get { return _cards;}
+        }
+
+        public int CardCount
+        {
+            get { return this.Cards.Count(); }
         }
 
         protected void RandomizeOrder()

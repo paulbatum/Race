@@ -1,5 +1,7 @@
 namespace Race.Domain
 {
+    public delegate void CardZoneChanger(CardZone targetZone);
+
     public class Card
     {
         private CardZone _currentZone;

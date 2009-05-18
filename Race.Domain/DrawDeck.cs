@@ -30,11 +30,6 @@ namespace Race.Domain
             get { return this.Cards.First(); }
         }
 
-        public int CardCount
-        {
-            get { return Cards.Count(); }
-        }
-
         public DiscardPile Discards
         {
             get { return _discards; }

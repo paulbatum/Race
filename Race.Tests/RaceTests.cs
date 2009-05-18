@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using Moq;
 using NUnit.Framework;
@@ -12,7 +13,7 @@ namespace Race.Tests
         [Test]
         public void Can_create_game_with_two_players()
         {
-            var game = new Game(null);
+            var game = new Game();
             game.AddPlayer(new Player {Name = "Paul"});
             game.AddPlayer(new Player {Name = "Tristan"});
 
@@ -25,11 +26,19 @@ namespace Race.Tests
         {
             var deckMock = new Mock<DrawDeck>();
                 
-            var game = new Game(deckMock.Object);
+            var game = new Game(deckMock.Object, null, null, new GameImmediatelyOverEndCondition());
             game.Start();
 
             deckMock.Verify(x => x.Shuffle());
 
+        }
+
+        private class GameImmediatelyOverEndCondition : IEndCondition
+        {
+            public bool IsGameOver(Game game)
+            {
+                return true;
+            }
         }
     }
 }
