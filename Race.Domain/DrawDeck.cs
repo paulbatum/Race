@@ -6,18 +6,25 @@ namespace Race.Domain
 {
     public class DrawDeck : CardZone
     {
-        private DiscardPile _discards;
+        private readonly DiscardPile _discards;
 
-        public DrawDeck()
+        public DrawDeck() : this(Enumerable.Empty<Card>(), new DiscardPile())
         {
         }
-
+        
         public DrawDeck(IEnumerable<Card> startingCards, DiscardPile discards)
         {
             foreach (Card card in startingCards)
                 card.MoveTo(this);
 
             _discards = discards;
+        }
+
+        public static DrawDeck CreateWithCards(int cardCount)
+        {
+            var cards = new List<Card>();
+            cardCount.Times(() => cards.Add(new Card()));
+            var deck = new DrawDeck(cards, new DiscardPile());
         }
 
         public virtual void Shuffle()

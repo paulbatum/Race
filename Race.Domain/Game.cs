@@ -36,6 +36,9 @@ namespace Race.Domain
         public void Start()
         {
             DrawDeck.Shuffle();
+
+            
+
             while(!_endCondition.IsGameOver(this))
             {
                 var round = new Round(this);
@@ -44,6 +47,7 @@ namespace Race.Domain
         }
         
     }
+
 
     //public class DrawCardAction
     //{
