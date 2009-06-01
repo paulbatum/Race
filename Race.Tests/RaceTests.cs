@@ -26,7 +26,7 @@ namespace Race.Tests
         {
             var deckMock = new Mock<DrawDeck>();
                 
-            var game = new Game(deckMock.Object, null, null, new GameImmediatelyOverEndCondition());
+            var game = new Game(deckMock.Object, null, new GameImmediatelyOverEndCondition());
             game.Start();
 
             deckMock.Verify(x => x.Shuffle());
@@ -38,13 +38,13 @@ namespace Race.Tests
         {
             var inputMock = new Mock<GameInput>();
 
-            var game = new Game(DrawDeck.CreateWithCards(20), inputMock.Object, null, null);
+            var game = new Game(DrawDeck.CreateWithCards(20), inputMock.Object, null);
             game.AddPlayer(new Player { Name = "Paul"});
             game.AddPlayer(new Player { Name = "Tristan"});
 
             game.Start();
 
-            inputMock.Verify(x => x. );
+            Assert.Fail();
         }
 
         private class GameImmediatelyOverEndCondition : IEndCondition

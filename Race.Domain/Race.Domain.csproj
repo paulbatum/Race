@@ -40,14 +40,16 @@
     <Compile Include="Card.cs" />
     <Compile Include="CardZone.cs" />
     <Compile Include="DefaultEndCondition.cs" />
+    <Compile Include="DrawAndDiscardAction.cs" />
     <Compile Include="DrawDeck.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameInput.cs" />
     <Compile Include="GameOutput.cs" />
-    <Compile Include="Hack1.cs" />
     <Compile Include="IEndCondition.cs" />
     <Compile Include="MyExtensions.cs" />
     <Compile Include="NullZone.cs" />
+    <Compile Include="ActionCardSelection.cs" />
+    <Compile Include="PhaseType.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Round.cs" />

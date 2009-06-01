@@ -24,7 +24,7 @@ namespace Race.Domain
         {
             var cards = new List<Card>();
             cardCount.Times(() => cards.Add(new Card()));
-            var deck = new DrawDeck(cards, new DiscardPile());
+            return new DrawDeck(cards, new DiscardPile());
         }
 
         public virtual void Shuffle()
