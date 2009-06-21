@@ -12,7 +12,7 @@ namespace Race.Domain
         public Round(Game game)
         {
             _game = game;
-            _phases = new List<Phase> {new ExplorePhase(), new DevelopPhase(), new SettlePhase(), new ConsumePhase(), new ProducePhase()};
+            //_phases = new List<Phase> {new ExplorePhase(), new DevelopPhase(), new SettlePhase(), new ConsumePhase(), new ProducePhase()};
         }
 
         public Round(Game game, IList<Phase> phases)

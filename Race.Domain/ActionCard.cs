@@ -2,85 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Race.Domain.Actions;
 
 namespace Race.Domain
 {
-    public class ExploreExtraCards : ActionCard
-    {
-        public int ExecutionOrder
-        {
-            get { return 1; }
-        }
-
-        public Phase GetPhase()
-        {
-            return new ExplorePhase();
-        }
-    }
-
     public class ActionCard<TPhase, TBonus> : ActionCard
         where TPhase : Phase
         where TBonus : Bonus
     {
-        private readonly PhaseType _phaseType;
-
-        public ActionCard()
-        {
-            _phaseType = new PhaseType(typeof(TPhase));
-        }
-
-        public override PhaseType PhaseType
-        {
-            get { return _phaseType; }
-        }
 
     }
-
 
     public abstract class ActionCard
     {
         public static readonly ActionCard ExploreExtraCard = new ActionCard<ExplorePhase, ExtraCardBonus>();
         public static readonly ActionCard ExploreExtraChoice = new ActionCard<ExplorePhase, ExtraChoiceBonus>();
         public static readonly ActionCard Develop = new ActionCard<DevelopPhase, ReducedDevelopmentCostBonus>();
-        public static readonly ActionCard Settle = new ActionCard<SettlePhase, DrawAfterSettleBonus>();
-        public static readonly ActionCard ConsumeTrade = new ActionCard<ConsumePhase, TradeBonus>();
-        public static readonly ActionCard ConsumeDoubleVP = new ActionCard<ConsumePhase, DoubleVPBonus>();
-        public static readonly ActionCard Produce = new ActionCard<ProducePhase, ProduceOnWindfallBonus>();
-
-        public abstract PhaseType PhaseType { get; }
+        //public static readonly ActionCard Settle = new ActionCard<SettlePhase, DrawAfterSettleBonus>();
+        //public static readonly ActionCard ConsumeTrade = new ActionCard<ConsumePhase, TradeBonus>();
+        //public static readonly ActionCard ConsumeDoubleVP = new ActionCard<ConsumePhase, DoubleVPBonus>();
+        //public static readonly ActionCard Produce = new ActionCard<ProducePhase, ProduceOnWindfallBonus>();
     }
-
-    public class PhaseType : IEquatable<PhaseType>
-    {
-        private readonly Type _type;
-        public int ExecutionOrder { get; private set; }
-
-        public PhaseType(Type type)
-        {
-            _type = type;
-            ExecutionOrder = type
-                .GetCustomAttributes(typeof(PhaseOrderAttribute), false)
-                .Cast<PhaseOrderAttribute>()
-                .Single()
-                .Order;
-        }
-
-        public bool Equals(PhaseType other)
-        {
-            if (other == null)
-                return false;
-
-            return this._type == other._type;
-        }
-
-        public Phase Create()
-        {
-            return (Phase)Activator.CreateInstance(_type);
-        }
-
-    }
-
+   
     public abstract class Phase
     {
         public abstract string Name { get; }
@@ -88,17 +30,17 @@ namespace Race.Domain
         public abstract int ExecutionOrder { get; }
     }
 
-    public class ProducePhase : Phase
-    {
-    }
+    //public class ProducePhase : Phase
+    //{
+    //}
 
-    public class ConsumePhase : Phase
-    {
-    }
+    //public class ConsumePhase : Phase
+    //{
+    //}
 
-    public class SettlePhase : Phase
-    {
-    }
+    //public class SettlePhase : Phase
+    //{
+    //}
 
     public class DevelopPhase : Phase
     {

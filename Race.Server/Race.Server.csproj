@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8831316A-E718-41CE-B5E8-15662DADA7FB}</ProjectGuid>
+    <ProjectGuid>{75C301B5-25E0-4B0D-A650-59D3C94AB93C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Race.Contracts</RootNamespace>
-    <AssemblyName>Race.Contracts</AssemblyName>
+    <RootNamespace>Race.Server</RootNamespace>
+    <AssemblyName>Race.Server</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -35,21 +35,27 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameState.cs" />
-    <Compile Include="HostedGameInfo.cs" />
-    <Compile Include="IHostedGameService.cs" />
-    <Compile Include="IRaceServer.cs" />
+    <Compile Include="HostedGameService.cs" />
+    <Compile Include="RaceServerSession.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Race.Contracts\Race.Contracts.csproj">
+      <Project>{8831316A-E718-41CE-B5E8-15662DADA7FB}</Project>
+      <Name>Race.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Race.Domain\Race.Domain.csproj">
+      <Project>{04CEA84A-304D-4FC8-9110-3E771E4BEA45}</Project>
+      <Name>Race.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

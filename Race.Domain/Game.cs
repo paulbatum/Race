@@ -47,9 +47,9 @@ namespace Race.Domain
         {
             DrawDeck.Shuffle();
 
-            var discards = Input.GetOpeningDiscards();
-            foreach (var d in discards)
-                d.Apply();
+            //var discards = Input.GetOpeningDiscards();
+            //foreach (var d in discards)
+            //    d.Apply();
         }
     }
 }
