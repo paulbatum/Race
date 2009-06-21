@@ -45,5 +45,12 @@ namespace Race.Domain
         {
             _cards.Remove(card);
         }
+
+        public void MoveAll(CardZone targetZone)
+        {
+            IList<Card> allCards = new List<Card>(this._cards);
+            foreach(Card c in allCards)
+                c.MoveTo(targetZone);
+        }
     }
 }

@@ -15,8 +15,8 @@ namespace Race.Tests
         [SetUp]
         public void SetUp()
         {
-            _card1 = new Card();
-            _card2 = new Card();
+            _card1 = new DummyCard();
+            _card2 = new DummyCard();
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace Race.Tests
         public void Should_shuffle_deck_after_being_refilled()
         {
             var cards = new List<Card>();
-            30.Times(() => cards.Add(new Card()));
+            30.Times(() => cards.Add(new DummyCard()));
             var drawDeck = new DrawDeck(cards, new DiscardPile());
 
             30.Times(() => drawDeck.TopCard.MoveTo(drawDeck.Discards));

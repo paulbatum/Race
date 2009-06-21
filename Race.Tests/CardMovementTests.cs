@@ -19,7 +19,7 @@ namespace Race.Tests
         {
             _zone1 = new CardZone();
             _zone2 = new CardZone();
-            _card = new Card();
+            _card = new DummyCard();
         }
 
         [Test]

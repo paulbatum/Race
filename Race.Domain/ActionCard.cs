@@ -1,17 +1,38 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Race.Domain.Actions;
 
 namespace Race.Domain
 {
+    public class ExploreExtraCards : ActionCard
+    {
+        public int ExecutionOrder
+        {
+            get { return 1; }
+        }
+
+        public Phase GetPhase()
+        {
+            return new ExplorePhase();
+        }
+    }
+
     public class ActionCard<TPhase, TBonus> : ActionCard
         where TPhase : Phase
         where TBonus : Bonus
     {
-        public PhaseType Phase
+        private readonly PhaseType _phaseType;
+
+        public ActionCard()
         {
-            get
-            {
-                return new PhaseType(typeof (TPhase));
-            }
+            _phaseType = new PhaseType(typeof(TPhase));
+        }
+
+        public override PhaseType PhaseType
+        {
+            get { return _phaseType; }
         }
 
     }
@@ -19,33 +40,52 @@ namespace Race.Domain
 
     public abstract class ActionCard
     {
-        public static readonly ActionCard ExploreExtraCard =    new ActionCard<ExplorePhase, ExtraCardBonus>();
-        public static readonly ActionCard ExploreExtraChoice =  new ActionCard<ExplorePhase, ExtraChoiceBonus>();
-        public static readonly ActionCard Develop =             new ActionCard<DevelopPhase, ReducedDevelopmentCostBonus>();
-        public static readonly ActionCard Settle =              new ActionCard<SettlePhase,  DrawAfterSettleBonus>();
-        public static readonly ActionCard ConsumeTrade =        new ActionCard<ConsumePhase, TradeBonus>();
-        public static readonly ActionCard ConsumeDoubleVP =     new ActionCard<ConsumePhase, DoubleVPBonus>();
-        public static readonly ActionCard Produce =             new ActionCard<ProducePhase, ProduceOnWindfallBonus>();
+        public static readonly ActionCard ExploreExtraCard = new ActionCard<ExplorePhase, ExtraCardBonus>();
+        public static readonly ActionCard ExploreExtraChoice = new ActionCard<ExplorePhase, ExtraChoiceBonus>();
+        public static readonly ActionCard Develop = new ActionCard<DevelopPhase, ReducedDevelopmentCostBonus>();
+        public static readonly ActionCard Settle = new ActionCard<SettlePhase, DrawAfterSettleBonus>();
+        public static readonly ActionCard ConsumeTrade = new ActionCard<ConsumePhase, TradeBonus>();
+        public static readonly ActionCard ConsumeDoubleVP = new ActionCard<ConsumePhase, DoubleVPBonus>();
+        public static readonly ActionCard Produce = new ActionCard<ProducePhase, ProduceOnWindfallBonus>();
+
+        public abstract PhaseType PhaseType { get; }
     }
 
-    public class PhaseType
+    public class PhaseType : IEquatable<PhaseType>
     {
         private readonly Type _type;
+        public int ExecutionOrder { get; private set; }
 
         public PhaseType(Type type)
         {
             _type = type;
+            ExecutionOrder = type
+                .GetCustomAttributes(typeof(PhaseOrderAttribute), false)
+                .Cast<PhaseOrderAttribute>()
+                .Single()
+                .Order;
         }
 
-        public string Name
+        public bool Equals(PhaseType other)
         {
-            get { return _type.Name; }
+            if (other == null)
+                return false;
+
+            return this._type == other._type;
         }
+
+        public Phase Create()
+        {
+            return (Phase)Activator.CreateInstance(_type);
+        }
+
     }
 
-    public class Phase
+    public abstract class Phase
     {
-        
+        public abstract string Name { get; }
+        public abstract void Execute(Game game, IEnumerable<ActionCardSelection> selections);
+        public abstract int ExecutionOrder { get; }
     }
 
     public class ProducePhase : Phase
@@ -62,10 +102,46 @@ namespace Race.Domain
 
     public class DevelopPhase : Phase
     {
+        public override string Name
+        {
+            get { return "Develop"; }
+        }
+
+        public override void Execute(Game game, IEnumerable<ActionCardSelection> selections)
+        {
+
+            var actions = from p in game.Players
+                          let bonuses = from s in selections 
+                                        where s.Player == p
+                                        select s.SelectedBonus
+                          select new DevelopAction(game, p, bonuses.SingleOrDefault());
+
+            game.Input.DoDevelop(actions);
+        }
+
+        public override int ExecutionOrder
+        {
+            get { return 2; }
+        }
     }
 
     public class ExplorePhase : Phase
     {
+        public override string Name
+        {
+            get { return "Explore"; }
+        }
+
+        public override void Execute(Game game, IEnumerable<ActionCardSelection> selections)
+        {
+            var actions = game.Players.Select(p => new ExploreAction(game, p));
+            game.Input.DoExplore(actions);
+        }
+
+        public override int ExecutionOrder
+        {
+            get { return 1; }
+        }
     }
 
 
@@ -97,11 +173,11 @@ namespace Race.Domain
     {
     }
 
-    
+
 
     public abstract class Bonus
     {
-        
+
     }
 
 }

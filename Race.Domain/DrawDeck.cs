@@ -23,7 +23,7 @@ namespace Race.Domain
         public static DrawDeck CreateWithCards(int cardCount)
         {
             var cards = new List<Card>();
-            cardCount.Times(() => cards.Add(new Card()));
+            cardCount.Times(() => cards.Add(new DummyCard()));
             return new DrawDeck(cards, new DiscardPile());
         }
 

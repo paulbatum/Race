@@ -39,7 +39,7 @@ namespace Race.Domain
             while(!_endCondition.IsGameOver(this))
             {
                 var round = new Round(this);
-                round.Begin();
+                round.Execute();
             }
         }
 
